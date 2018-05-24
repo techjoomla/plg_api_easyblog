@@ -72,7 +72,6 @@ class EasyblogApiResourceLatest extends ApiResource
 			else
 			{
 				$rows = $this->getFeatureBlog();
-				$sorting = $this->plugin->params->get('sorting', 'featured');
 			}
 		}
 		elseif ($user_id)
@@ -157,12 +156,10 @@ class EasyblogApiResourceLatest extends ApiResource
 	{
 		$app = JFactory::getApplication();
 		$limit = $app->input->get('limit', 10, 'INT');
-		$categories = $app->input->get('categories', '', 'STRING');
 		$blogss = new EasyBlogModelBlog;
 		$blogss->setState('limit', $limit);
-		$res = $blogss->getFeaturedBlog(array(), $limit);
 
-		return $res;
+		return $blogss->getFeaturedBlog(array(), $limit);
 	}
 
 	/** Get name

@@ -67,9 +67,8 @@ class EasyblogApiResourceTags extends ApiResource
 			$allTags->result = $Tagmodel->getTagCloud('', $order = 'title', $sort = 'asc', $checkAccess = false);
 		}
 
-		// $allTags->result = array_slice($allTags, $limitstart, $limit);
-		// If need count uncomment this
-		// $res->data = $allTags;
+		$allTags->result = array_slice($allTags, $limitstart, $limit);
+
 		return $allTags;
 	}
 

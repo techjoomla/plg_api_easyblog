@@ -43,8 +43,6 @@ class EasyblogApiResourceImage extends ApiResource
 	 */
 	public function post()
 	{
-		$input = JFactory::getApplication()->input;
-		$log_user = $this->plugin->get('user')->id;
 		$res = new stdClass;
 
 		// Let's get the path for the current request.
@@ -54,7 +52,6 @@ class EasyblogApiResourceImage extends ApiResource
 		{
 			$key = $post->id;
 			$place = 'post:' . $key;
-			$key = null;
 			$source	= urldecode('/' . $file['name']);
 			$allowed = EasyBlogImage::canUploadFile($file, $message);
 

@@ -37,10 +37,8 @@ class EasyblogApiResourceCategory extends ApiResource
 	public function get()
 	{
 		$input = JFactory::getApplication()->input;
-		$model = EasyBlogHelper::getModel('Blog');
 		$category = EasyBlogHelper::table('Category', 'Table');
 		$id = $input->get('id', null, 'INT');
-		$search = $input->get('search', null, 'STRING');
 		$limitstart = $input->get('limitstart', 0, 'INT');
 		$limit = $input->get('limit', 10, 'INT');
 
@@ -49,9 +47,6 @@ class EasyblogApiResourceCategory extends ApiResource
 			$categoriesmodel = EasyBlogHelper::getModel('Categories');
 			$categories = new stdClass;
 			$categories->result = $categoriesmodel->getCategoryTree('ordering');
-
-			// $categories->result = array_slice($categories->result,$limitstart,$limit);
-			$temp = array();
 
 			foreach ($categories->result as $avt)
 			{
@@ -75,6 +70,7 @@ class EasyblogApiResourceCategory extends ApiResource
 
 		$category->load($id);
 		$selectedCat = new stdClass;
+		$temp = array();
 		$temp = explode(":", $category->getAlias());
 		$selectedCat->title = $category->title;
 		$selectedCat->id = $id;

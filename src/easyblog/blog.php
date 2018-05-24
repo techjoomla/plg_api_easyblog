@@ -59,12 +59,8 @@ class EasyblogApiResourceBlog extends ApiResource
 	public function post()
 	{
 		$input = JFactory::getApplication()->input;
-		$blog = EasyBlogHelper::table('Blog');
 		$data = $input->post->getArray(array());
 		$log_user = $this->plugin->get('user')->id;
-		$createTag = array();
-		$res = new stdClass;
-
 		$uid = $input->getInt('uid');
 
 		// If no id given, create a new post.
@@ -75,10 +71,8 @@ class EasyblogApiResourceBlog extends ApiResource
 		if (! $uid)
 		{
 			$post->create();
-			$uid = $post->uid;
 		}
 
-		$file = JRequest::getVar('file', '', 'FILES', 'array');
 		$data['image'] = basename($data['image']);
 		$data['image'] = $key . '/' . $data['image'];
 
@@ -97,9 +91,6 @@ class EasyblogApiResourceBlog extends ApiResource
 
 		// Since this is a form submit and we knwo the date that submited already with the offset timezone. we need to reverse it.
 		$options['applyDateOffset'] = true;
-
-		// Check if this is a 'Apply' action or not.
-		$isApply = $input->post->get('isapply', false, 'bool');
 
 		// For autosave requests we do not want to run validation on it.
 		$autosave = $input->post->get('autosave', false, 'bool');
@@ -138,8 +129,6 @@ class EasyblogApiResourceBlog extends ApiResource
 	public function get()
 	{
 		$input = JFactory::getApplication()->input;
-		$model = EasyBlogHelper::getModel('Blog');
-		$config = EasyBlogHelper::getConfig();
 		$id = $input->get('id', null, 'INT');
 
 		// If we have an id try to fetch the user

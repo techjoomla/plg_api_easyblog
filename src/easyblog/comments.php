@@ -149,9 +149,6 @@ class EasyblogApiResourceComments extends ApiResource
 			}
 		}
 
-		// @task: Retrieve the comments model
-		$model = EasyBlogHelper::getModel('Comment');
-
 		// @task: Retrieve the comment's table
 		$comment = EasyBlogHelper::table('Comment');
 
@@ -172,7 +169,6 @@ class EasyblogApiResourceComments extends ApiResource
 		$fullname = isset($post['name']) ? $post['name'] : '';
 		$username = isset($post['esusername']) ? $post['esusername'] : '';
 		$email = $post['email'];
-		$message = '';
 		$newUserId = 0;
 
 		// @task: Process registrations if necessary
@@ -188,7 +184,6 @@ class EasyblogApiResourceComments extends ApiResource
 			$newUserId = $state;
 		}
 
-		$totalComments = empty($post['totalComment']) ? 1 : $post['totalComment'];
 		$date = EasyBlogDate::getDate();
 		$comment->set('created', $date->toMySQL());
 		$comment->set('modified', $date->toMySQL());
@@ -229,7 +224,6 @@ class EasyblogApiResourceComments extends ApiResource
 		// @rule: Process subscription for blog automatically when the user submits a new comment and wants to subscribe to the blog.
 		if ($subscribeBlog && $config->get('main_subscription') && $blog->subscription)
 		{
-			$isSubscribed = false;
 			$userId = $my->id;
 			$blogModel = EasyblogHelper::getModel('Blog');
 
@@ -239,7 +233,7 @@ class EasyblogApiResourceComments extends ApiResource
 
 				if (empty($sid))
 				{
-					$isSubscribed = $blogModel->addBlogSubscription($blog->id, $email, '', $fullname);
+					$blogModel->addBlogSubscription($blog->id, $email, '', $fullname);
 				}
 			}
 			else
@@ -253,7 +247,7 @@ class EasyblogApiResourceComments extends ApiResource
 				}
 				else
 				{
-					$isSubscribed = $blogModel->addBlogSubscription($blog->id, $email, $userId, $fullname);
+					$blogModel->addBlogSubscription($blog->id, $email, $userId, $fullname);
 				}
 			}
 		}
@@ -321,7 +315,6 @@ class EasyblogApiResourceComments extends ApiResource
 	public function validateFields($post)
 	{
 		$config = EasyBlogHelper::getConfig();
-		$my = JFactory::getUser();
 
 		if (!isset($post['comment']))
 		{
@@ -394,9 +387,6 @@ class EasyblogApiResourceComments extends ApiResource
 				{
 					return false;
 				}
-
-				$this->err[0] = JText::_('COM_EASYBLOG_COMMENT_EMAIL_INVALID');
-				$this->err[1] = JText::_('PLG_API_EASYBLOG_ESEMAIL');
 
 				return false;
 			}

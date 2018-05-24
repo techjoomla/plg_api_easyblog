@@ -64,15 +64,12 @@ class EasyblogApiResourceSubscribe extends ApiResource
 			case 'site': $res1 = $this->getSitesubscribers();
 
 						 return $res1;
-			break;
 			case 'blog': $res2 = $this->getBlogsubscribers();
 
 						 return $res2;
-			break;
 			case 'cat': $res3 = $this->getCatsubscribes();
 
 						 return $res3;
-			break;
 		}
 	}
 
@@ -99,7 +96,6 @@ class EasyblogApiResourceSubscribe extends ApiResource
 		$app = JFactory::getApplication();
 		$blogid = $app->input->get('blogid', 0, 'INT');
 		$db = EasyBlogHelper::db();
-		$where = array();
 
 		// Making query for getting count of blog subscription.
 		$query = 'select count(1) from `#__easyblog_post_subscription` as a';
@@ -125,7 +121,6 @@ class EasyblogApiResourceSubscribe extends ApiResource
 		$app = JFactory::getApplication();
 		$catid = $app->input->get('catid', 0, 'INT');
 		$db = EasyBlogHelper::db();
-		$where = array();
 
 		// Making query for getting count of category subscription.
 		$query = 'select count(1) from `#__easyblog_category_subscription` as a';
@@ -212,7 +207,7 @@ class EasyblogApiResourceSubscribe extends ApiResource
 
 		if (!$status)
 		{
-			$result = $bmodel->addBlogSubscription($blogid, $email, $userid, $usr->name);
+			$bmodel->addBlogSubscription($blogid, $email, $userid, $usr->name);
 			$res->status = 1;
 			$res->message = JText::_('PLG_API_EASYBLOG_SUBSCRIPTION_SUCCESS');
 		}

@@ -33,18 +33,6 @@ class EasyBlogSimpleSchema_plg
 		$profile = EB::table('Profile', 'Table');
 		$profile->load($row->created_by);
 		$created = EasyBlogDate::dateWithOffSet($row->created);
-		$formatDate = true;
-
-		if (EasyBlogHelper::getJoomlaVersion() >= '1.6')
-		{
-			$eb_lang = new EasyBlogString;
-			$langCode = $eb_lang->getLangCode();
-
-			if ($langCode != 'en-GB' || $langCode != 'en-US')
-			{
-				$formatDate = false;
-			}
-		}
 
 		$blog->created = $created->toMySQL();
 		$blog->text	= $row->intro . $row->content;
@@ -187,17 +175,6 @@ class EasyBlogSimpleSchema_4
 		$profile = EasyBlogHelper::getTable('Profile', 'Table');
 		$profile->load($row->created_by);
 		$created = EasyBlogDateHelper::dateWithOffSet($row->created);
-		$formatDate = true;
-
-		if (EasyBlogHelper::getJoomlaVersion() >= '1.6')
-		{
-			$langCode = EasyBlogStringHelper::getLangCode();
-
-			if ($langCode != 'en-GB' || $langCode != 'en-US')
-			{
-				$formatDate = false;
-			}
-		}
 
 		$blog->created = $created->toMySQL();
 		$blog->text	= $row->intro . $row->content;
