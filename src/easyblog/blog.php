@@ -31,7 +31,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function to delete blog
 	 *
-	 * @return ApiPlugin response object
+	 * @return mixed
 	 */
 	public function delete()
 	{
@@ -41,7 +41,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function for CU blogs
 	 *
-	 * @return ApiPlugin response object
+	 * @return mixed
 	 */
 	public function post()
 	{
@@ -111,7 +111,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function to get blog details
 	 *
-	 * @return ApiPlugin response object
+	 * @return mixed
 	 */
 	public function get()
 	{
@@ -177,7 +177,7 @@ class EasyblogApiResourceBlog extends ApiResource
 		else
 		{
 			$val = $blog->delete($id);
-			$re->status = $val;
+			$res->status = $val;
 			$res->message = JText::_('PLG_API_EASYBLOG_DELETE_MESSAGE');
 
 			return $res;

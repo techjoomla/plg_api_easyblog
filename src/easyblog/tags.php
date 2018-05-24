@@ -59,11 +59,11 @@ class EasyblogApiResourceTags extends ApiResource
 
 		if (!empty($keyword))
 		{
-			$allTags->result = $Tagmodel->search($keyword, $wordSearch);
+			$allTags->result[] = $Tagmodel->search($keyword, $wordSearch);
 		}
 		else
 		{
-			$allTags->result = $Tagmodel->getTagCloud('', $order = 'title', $sort = 'asc', $checkAccess = false);
+			$allTags->result[] = $Tagmodel->getTagCloud('', $order = 'title', $sort = 'asc', $checkAccess = false);
 		}
 
 		$allTags->result = array_slice($allTags, $limitstart, $limit);
@@ -73,20 +73,18 @@ class EasyblogApiResourceTags extends ApiResource
 
 	/** Search tags
 	 *
-	 * @return	ApiPlugin response object
+	 * @return	mixed
 	 */
 	public function searchTag()
 	{
 		$app = JFactory::getApplication();
 		$limitstart = $app->input->get('limitstart',0,'INT');
 		$limit =  $app->input->get('limit',20,'INT');
-		$Tagmodel = EasyBlogHelper::getModel( 'Tags' );
 		$input = JFactory::getApplication()->input;
 		$keyword = $input->get('title','', 'STRING');
-		$wordSearch = true;
 		$db = EB::db();
 		$query = array();
-		$search = $wordSearch ? '%' . $keyword . '%' : $keyword . '%';
+		$search = $keyword . '%';
 		$query[] = 'SELECT * FROM ' . $db->quoteName('#__easyblog_tag');
 		$query[] = 'WHERE ' . $db->quoteName('title') . ' LIKE ' . $db->Quote($search);
 		$query[] = 'AND ' . $db->quoteName('published') . '=' . $db->Quote(1);
