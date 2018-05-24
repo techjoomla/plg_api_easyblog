@@ -159,7 +159,7 @@ class EasyBlogSimpleSchema_4
 {
 	/** Function mapPost
 	 *
-	 * @param   STRING  $row           error message
+	 * @param   OBJECT  $row           error message
 	 * @param   INT     $strip_tags    error code
 	 * @param   STRING  $text_length   error message
 	 * @param   ARRAY   $skip          error code

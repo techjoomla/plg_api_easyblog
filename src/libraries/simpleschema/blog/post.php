@@ -53,9 +53,14 @@ class PostSimpleSchema
 	public $allowcomment;
 
 	public $allowsubscribe;
+
 	public $ispassword;
+
 	public $blogpassword;
+
 	public $isVoted;
+
+	public $introtext;
 
 	public function __construct()
 	{
