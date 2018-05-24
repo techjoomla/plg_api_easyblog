@@ -44,7 +44,6 @@ class EasyblogApiResourceTags extends ApiResource
 		$app = JFactory::getApplication();
 		$limitstart = $app->input->get('limitstart', 0, 'INT');
 		$limit = $app->input->get('limit', 20, 'INT');
-		$Tagmodel = EasyBlogHelper::getModel('Tags');
 		$input = JFactory::getApplication()->input;
 		$keyword = $input->get('title', '', 'STRING');
 

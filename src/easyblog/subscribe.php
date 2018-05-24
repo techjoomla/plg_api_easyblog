@@ -148,19 +148,15 @@ class EasyblogApiResourceSubscribe extends ApiResource
 			case 'site': $res1 = $this->addToSitesubscribe();
 
 						 return $res1;
-			break;
 			case 'blog': $res2 = $this->addToBlogsubscribe();
 
 						 return $res2;
-			break;
 			case 'cat': $res3 = $this->addToCategorysubscribe();
 
 						 return $res3;
-			break;
 			case 'author': $res4 = $this->addToAuthorsubscribe();
 
 						 return $res4;
-			break;
 		}
 	}
 
@@ -198,7 +194,6 @@ class EasyblogApiResourceSubscribe extends ApiResource
 		$app = JFactory::getApplication();
 		$email = $app->input->get('email', '', 'STRING');
 		$userid = $app->input->get('userid', '', 'STRING');
-		$name = $app->input->get('name', '', 'STRING');
 		$blogid = $app->input->get('blogid', 0, 'INT');
 		$usr = FD::user($userid);
 		$res = new stdClass;

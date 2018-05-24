@@ -19,17 +19,6 @@ jimport('simpleschema.easyblog.blog.post');
  */
 class EasyblogApiResourceCategory extends ApiResource
 {
-	/** Constructor
-	 *
-	 * @param   STRING  $ubject    error message
-	 * @param   INT     $config    error code
-	 *
-	 */
-	public function __construct(&$ubject, $config = array())
-	{
-		parent::__construct($ubject, $config = array());
-	}
-
 	/** Get Call
 	 *
 	 * @return	mixed

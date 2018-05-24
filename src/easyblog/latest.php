@@ -23,17 +23,6 @@ require_once JPATH_ADMINISTRATOR . '/components/com_easyblog/includes/formatter/
  */
 class EasyblogApiResourceLatest extends ApiResource
 {
-	/** Constructor
-	 *
-	 * @param   STRING  $ubject    error message
-	 * @param   INT     $config    error code
-	 *
-	 */
-	public function __construct(&$ubject, $config = array())
-	{
-		parent::__construct($ubject, $config = array());
-	}
-
 	/** Get call
 	 *
 	 * @return	mixed

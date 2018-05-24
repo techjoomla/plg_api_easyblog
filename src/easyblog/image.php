@@ -26,17 +26,6 @@ require_once EBLOG_ADMIN_INCLUDES . '/mediamanager/adapters/abstract.php';
  */
 class EasyblogApiResourceImage extends ApiResource
 {
-	/** Constructor
-	 *
-	 * @param   STRING  $ubject    error message
-	 * @param   INT     $config    error code
-	 *
-	 */
-	public function __construct(&$ubject, $config = array())
-	{
-		parent::__construct($ubject, $config = array());
-	}
-
 	/** Post Call
 	 *
 	 * @return	mixed

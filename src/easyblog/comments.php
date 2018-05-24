@@ -387,8 +387,6 @@ class EasyblogApiResourceComments extends ApiResource
 				{
 					return false;
 				}
-
-				return false;
 			}
 		}
 

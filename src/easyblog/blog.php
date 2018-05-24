@@ -29,19 +29,6 @@ require_once EBLOG_ADMIN_INCLUDES . '/mediamanager/adapters/abstract.php';
 class EasyblogApiResourceBlog extends ApiResource
 {
 	/**
-	 * Constructor
-	 *
-	 * @param   array  &$ubject  Array
-	 * @param   array  $config   Array
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(&$ubject, $config = array())
-	{
-		parent::__construct($ubject, $config = array());
-	}
-
-	/**
 	 * Function to delete blog
 	 *
 	 * @return mixed
