@@ -19,7 +19,7 @@ class EasyblogApiResourceTags extends ApiResource
 {
 	/** Get Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function get()
 	{
@@ -37,7 +37,7 @@ class EasyblogApiResourceTags extends ApiResource
 
 	/** Get Call
 	 *
-	 * @return	array	list of tags
+	 * @return	ApiPlugin response object
 	 */
 	public function getTags()
 	{
@@ -71,8 +71,11 @@ class EasyblogApiResourceTags extends ApiResource
 		return $allTags;
 	}
 
-	/*
-	* public function searchTag()
+	/** Search tags
+	 *
+	 * @return	ApiPlugin response object
+	 */
+	public function searchTag()
 	{
 		$app = JFactory::getApplication();
 		$limitstart = $app->input->get('limitstart',0,'INT');
@@ -87,13 +90,11 @@ class EasyblogApiResourceTags extends ApiResource
 		$query[] = 'SELECT * FROM ' . $db->quoteName('#__easyblog_tag');
 		$query[] = 'WHERE ' . $db->quoteName('title') . ' LIKE ' . $db->Quote($search);
 		$query[] = 'AND ' . $db->quoteName('published') . '=' . $db->Quote(1);
-
 		$query = implode(' ', $query);
 		$db->setQuery($query);
 		$result = $db->loadObjectList();
-
 		$output = array_slice($result, $limitstart, $limit);
+
 		return $output;
 	}
-	*/
 }

@@ -17,8 +17,8 @@ class EasyBlogSimpleSchema_plg
 {
 	/** Function mapPost
 	 *
-	 * @param   STRING  $row           error message
-	 * @param   INT     $strip_tags    error code
+	 * @param   OBJECT  $row           error message
+	 * @param   STRING  $strip_tags    error code
 	 * @param   STRING  $text_length   error message
 	 * @param   ARRAY   $skip          error code
 	 *
@@ -100,7 +100,7 @@ class EasyBlogSimpleSchema_plg
 		}
 
 		// Handle image path
-		if (strpos($item->text, 'src="data:image') == false)
+		if (strpos($item->text, 'src="data:image') === false)
 		{
 			if (strpos($item->text, 'href="index'))
 			{

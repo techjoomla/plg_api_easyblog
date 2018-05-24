@@ -31,7 +31,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function to delete blog
 	 *
-	 * @return mixed
+	 * @return ApiPlugin response object
 	 */
 	public function delete()
 	{
@@ -41,7 +41,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function for CU blogs
 	 *
-	 * @return void
+	 * @return ApiPlugin response object
 	 */
 	public function post()
 	{
@@ -111,7 +111,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function to get blog details
 	 *
-	 * @return mixed
+	 * @return ApiPlugin response object
 	 */
 	public function get()
 	{
@@ -165,6 +165,7 @@ class EasyblogApiResourceBlog extends ApiResource
 		$id = $app->input->get('id', 0, 'INT');
 		$blog = EasyBlogHelper::table('Blog', 'Table');
 		$blog->load($id);
+		$res = new stdClass;
 
 		if (! $blog->id || ! $id)
 		{

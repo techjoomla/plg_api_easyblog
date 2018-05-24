@@ -24,7 +24,7 @@ class EasyblogApiResourceComments extends ApiResource
 {
 	/** Get Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function get()
 	{
@@ -82,7 +82,7 @@ class EasyblogApiResourceComments extends ApiResource
 
 	/** Post Call
 	 *
-	 * @return	array	list of images
+	 * @return	ApiPlugin response object
 	 */
 	public function post()
 	{
@@ -375,9 +375,7 @@ class EasyblogApiResourceComments extends ApiResource
 		{
 			if (($config->get('comment_require_email') || isset($post['subscribe-to-blog'])))
 			{
-				$regex = $strict ?
-				'/^([.0-9a-z_-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,4})$/i' :
-				'/^([*+!.&#$¦\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,4})$/i';
+				$regex = '/^([*+!.&#$¦\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,4})$/i';
 
 				if (preg_match($regex, trim($post['esemail']), $matches))
 				{

@@ -28,7 +28,7 @@ class EasyblogApiResourceImage extends ApiResource
 {
 	/** Post Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function post()
 	{

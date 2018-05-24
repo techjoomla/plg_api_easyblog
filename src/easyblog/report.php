@@ -30,7 +30,7 @@ class EasyblogApiResourceReport extends ApiResource
 
 	/** Post Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function post()
 	{
@@ -50,11 +50,11 @@ class EasyblogApiResourceReport extends ApiResource
 		$id = $app->input->get('id', 0, 'int');
 		$type = $app->input->get('type', '', 'POST');
 		$reason = $app->input->get('reason', '', 'STRING');
+		$final_result = new stdClass;
 
 		if (!$reason)
 		{
 			$message = JText::_('PLG_API_EASYBLOG_REASON_EMPTY');
-			$final_result = new stdClass;
 			$final_result->result['message'] = $message;
 			$final_result->result['status'] = false;
 

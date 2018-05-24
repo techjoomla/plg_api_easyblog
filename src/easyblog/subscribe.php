@@ -80,6 +80,7 @@ class EasyblogApiResourceSubscribe extends ApiResource
 	public function getSitesubscribers()
 	{
 		$ssmodel = new EasyBlogModelSubscriptions;
+		$result = array();
 		$result['count'] = $ssmodel->getTotal();
 		$smodel = new EasyBlogModelSubscription;
 		$result['data'] = $smodel->getSiteSubscribers();
@@ -102,6 +103,7 @@ class EasyblogApiResourceSubscribe extends ApiResource
 		$query .= ' where  a.post_id = ' . $db->Quote($blogid);
 		$db->setQuery($query);
 		$val = $db->loadResult();
+		$result = array();
 		$result['count'] = $val;
 		$btable = EasyBlogHelper::table('Blog');
 
@@ -127,6 +129,7 @@ class EasyblogApiResourceSubscribe extends ApiResource
 		$query .= ' where  a.category_id = ' . $db->Quote($catid);
 		$db->setQuery($query);
 		$val = $db->loadResult();
+		$result = array();
 		$result['count'] = $val;
 		$cmodel = new EasyBlogModelCategory;
 		$result['data'] = $cmodel->getCategorySubscribers($catid);
@@ -259,6 +262,7 @@ class EasyblogApiResourceSubscribe extends ApiResource
 
 		if (!$status)
 		{
+			$result = new stdClass;
 			$result->result = $bmodel->addBloggerSubscription($bloggerid, $email, $userid, $name);
 		}
 		else

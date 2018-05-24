@@ -21,7 +21,7 @@ class EasyblogApiResourceCategory extends ApiResource
 {
 	/** Get Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function get()
 	{
@@ -101,9 +101,9 @@ class EasyblogApiResourceCategory extends ApiResource
 
 		if (empty($rows))
 		{
+			$posts = new stdClass;
 			$posts->result = [];
-
-			return $this->plugin->setResponse($posts);
+			$this->plugin->setResponse($posts);
 		}
 
 		foreach ($rows as $k => $v)
