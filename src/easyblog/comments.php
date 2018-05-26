@@ -24,7 +24,7 @@ class EasyblogApiResourceComments extends ApiResource
 {
 	/** Get Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function get()
 	{
@@ -82,7 +82,7 @@ class EasyblogApiResourceComments extends ApiResource
 
 	/** Post Call
 	 *
-	 * @return	mixed
+	 * @return	ApiPlugin response object
 	 */
 	public function post()
 	{
@@ -310,6 +310,7 @@ class EasyblogApiResourceComments extends ApiResource
 
 	/** Get Call
 	 * @param   STRING  $post  error message
+	 *
 	 * @return	mixed
 	 */
 	public function validateFields($post)
