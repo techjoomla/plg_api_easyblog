@@ -40,9 +40,10 @@ class EasyblogApiResourceComments extends ApiResource
 
 		if (!$blog->id)
 		{
-			$this->plugin->setResponse($this->getErrorResponse(404, JText::_('PLG_API_EASYBLOG_BLOG_NOT_FOUND_MESSAGE')));
+			$comments->code = '404';
+			$comments->message = JText::_('PLG_API_EASYBLOG_BLOG_NOT_FOUND_MESSAGE');
 
-			return;
+			return $this->plugin->setResponse($comments);
 		}
 
 		$rows = $model->getBlogComment($id);
