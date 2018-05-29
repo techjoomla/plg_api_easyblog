@@ -41,7 +41,7 @@ class EasyblogApiResourceBlog extends ApiResource
 	/**
 	 * Function for CU blogs
 	 *
-	 * @return mixed
+	 * @return array|object
 	 */
 	public function post()
 	{
