@@ -24,7 +24,7 @@ class EasyblogApiResourceComments extends ApiResource
 {
 	/** Get Call
 	 *
-	 * @return	ApiPlugin response object
+	 * @return	object|string|array
 	 */
 	public function get()
 	{
@@ -41,6 +41,8 @@ class EasyblogApiResourceComments extends ApiResource
 		if (!$blog->id)
 		{
 			$this->plugin->setResponse($this->getErrorResponse(404, JText::_('PLG_API_EASYBLOG_BLOG_NOT_FOUND_MESSAGE')));
+
+			return;
 		}
 
 		$rows = $model->getBlogComment($id);
