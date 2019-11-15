@@ -54,7 +54,7 @@ class plgAPIEasyblog extends ApiPlugin
 		}
 		else
 		{
-			ApiResource::addIncludePath(dirname(__FILE__) . '/easyblog5');
+			ApiResource::addIncludePath(dirname(__FILE__) . '/easyblog');
 			require_once JPATH_ADMINISTRATOR . '/components/com_easyblog/includes/easyblog.php';
 			require_once JPATH_ADMINISTRATOR . '/components/com_easyblog/includes/constants.php';
 			require_once JPATH_ADMINISTRATOR . '/components/com_easyblog/includes/date/date.php';
