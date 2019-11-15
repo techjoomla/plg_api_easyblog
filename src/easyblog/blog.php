@@ -1,14 +1,11 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  Com_api
- *
- * @copyright   Copyright (C) 2009-2014 Techjoomla, Tekdi Technologies Pvt. Ltd. All rights reserved.
- * @license     GNU GPLv2 <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
- * @link        http://techjoomla.com
- * Work derived from the original RESTful API by Techjoomla (https://github.com/techjoomla/Joomla-REST-API)
- * and the com_api extension by Brian Edgerton (http://www.edgewebworks.com)
+ * @package    API_Plugins
+ * @copyright  Copyright (C) 2009-2014 Techjoomla, Tekdi Technologies Pvt. Ltd. All rights reserved.
+ * @license    GNU GPLv2 <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
+ * @link       http://www.techjoomla.com
  */
+
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.user.user');
@@ -32,56 +29,37 @@ require_once EBLOG_ADMIN_INCLUDES . '/mediamanager/adapters/abstract.php';
 class EasyblogApiResourceBlog extends ApiResource
 {
 	/**
-	 * Constructor
-	 *
-	 * @param   array  &$ubject  Array
-	 * @param   array  $config   Array
-	 *
-	 * @since   1.0
-	 */
-	public function __construct(&$ubject, $config = array())
-	{
-		parent::__construct($ubject, $config = array());
-	}
-
-	/**
 	 * Function to delete blog
 	 *
 	 * @return mixed
 	 */
 	public function delete()
 	{
-		$this->plugin->setResponse($this->delete_blog());
+		$this->plugin->setResponse($this->deleteBlog());
 	}
 
 	/**
 	 * Function for CU blogs
 	 *
-	 * @return void
+	 * @return array|object
 	 */
 	public function post()
 	{
 		$input = JFactory::getApplication()->input;
-		$blog = EasyBlogHelper::table('Blog');
 		$data = $input->post->getArray(array());
 		$log_user = $this->plugin->get('user')->id;
-		$createTag = array();
-		$res = new stdClass;
-
 		$uid = $input->getInt('uid');
 
 		// If no id given, create a new post.
 		$post = EB::post($uid);
-		$key = 'post:'.$post->id;
+		$key = 'post:' . $post->id;
 
 		// If there's no id provided, we will need to create the initial revision for the post.
 		if (! $uid)
 		{
 			$post->create();
-			$uid = $post->uid;
 		}
 
-		$file = JRequest::getVar('file', '', 'FILES', 'array');
 		$data['image'] = basename($data['image']);
 		$data['image'] = $key . '/' . $data['image'];
 
@@ -100,9 +78,6 @@ class EasyblogApiResourceBlog extends ApiResource
 
 		// Since this is a form submit and we knwo the date that submited already with the offset timezone. we need to reverse it.
 		$options['applyDateOffset'] = true;
-
-		// Check if this is a 'Apply' action or not.
-		$isApply = $input->post->get('isapply', false, 'bool');
 
 		// For autosave requests we do not want to run validation on it.
 		$autosave = $input->post->get('autosave', false, 'bool');
@@ -141,8 +116,6 @@ class EasyblogApiResourceBlog extends ApiResource
 	public function get()
 	{
 		$input = JFactory::getApplication()->input;
-		$model = EasyBlogHelper::getModel('Blog');
-		$config = EasyBlogHelper::getConfig();
 		$id = $input->get('id', null, 'INT');
 
 		// If we have an id try to fetch the user
@@ -186,12 +159,13 @@ class EasyblogApiResourceBlog extends ApiResource
 	 *
 	 * @return mixed
 	 */
-	public function delete_blog()
+	public function deleteBlog()
 	{
 		$app = JFactory::getApplication();
 		$id = $app->input->get('id', 0, 'INT');
 		$blog = EasyBlogHelper::table('Blog', 'Table');
 		$blog->load($id);
+		$res = new stdClass;
 
 		if (! $blog->id || ! $id)
 		{
@@ -203,7 +177,7 @@ class EasyblogApiResourceBlog extends ApiResource
 		else
 		{
 			$val = $blog->delete($id);
-			$re->status = $val;
+			$res->status = $val;
 			$res->message = JText::_('PLG_API_EASYBLOG_DELETE_MESSAGE');
 
 			return $res;
