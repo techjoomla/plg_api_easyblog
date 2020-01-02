@@ -58,15 +58,15 @@ class EasyblogApiResourceComments extends ApiResource
 			$item->commentid = $row->id;
 			$item->postid = $row->post_id;
 			$item->title = $row->title;
-			$item->text = EasyBlogComment::parseBBCode($row->comment);
-			$item->textplain = strip_tags(EasyBlogComment::parseBBCode($row->comment));
+			$item->text = $row->comment;
+			$item->textplain = $row->raw;
 			$item->created_date = $row->created;
 			$item->created_date_elapsed = EasyBlogDate::getLapsedTime($row->created);
 			$item->updated_date = $row->modified;
 			$item->author->name = $row->author->user->name;
 			$item->author->photo = $row->author->getAvatar();
-			$item->author->email = $row->email;
-			$item->author->website = isset($row->poster->url) ? $row->poster->url : $row->url;
+			$item->author->email = $row->author->user->email;
+			$item->author->website = '';
 			$comments->result[] = $item;
 		}
 
