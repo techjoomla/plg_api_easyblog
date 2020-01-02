@@ -68,8 +68,14 @@ class EasyblogApiResourceComments extends ApiResource
 			// Author
 			$profile->load($row->author->user->id);
 			$item->author->name = $row->author->user->name;
-			$item->author->photo = isset($row->poster->avatar) ? $row->poster->avatar : 'default_blogger.png';
-			$item->author->photo = JURI::root() . 'components/com_easyblog/assets/images/' . $profile->avatar;
+			$item->author->photo = isset($row->author->avatar) ? $row->author->avatar : 'default_blogger.png';
+
+			if($item->author->photo != "default_blogger.png")
+			{
+				$item->author->photo = JURI::root() . "images/easyblog_avatar/" . $profile->avatar;
+			}else{
+				$item->author->photo = JURI::root() . 'components/com_easyblog/assets/images/' . $profile->avatar;
+			}
 
 			// $item->author->photo = JURI::root() . 'images/easyblog_avatar/' . $profile->avatar;
 			$item->author->email = $row->email;
