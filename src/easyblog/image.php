@@ -52,7 +52,7 @@ class EasyblogApiResourceImage extends ApiResource
 				return $res;
 			}
 
-			$media = new EasyBlogMediaManagerAbstractSource;
+			$media = new EasyBlogMediaManagerAbstractSource('');
 			$upload_result = $media->upload($file, $place);
 			$upload_result->key = $place . $source;
 			$upload_result->group = 'files';

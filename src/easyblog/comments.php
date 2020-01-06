@@ -29,14 +29,13 @@ class EasyblogApiResourceComments extends ApiResource
 	public function get()
 	{
 		$input = JFactory::getApplication()->input;
-		$model = EasyBlogHelper::getModel('Blog');
 		$id = $input->get('id', null, 'INT');
+		$limit = $input->get('limit', 0, 'INT');
+
 		$comments = new stdClass;
 
-		// If we have an id try to fetch the blog
-		$blog = EasyBlogHelper::table('Blog');
+		$blog = EB::post($id);
 		$blog->load($id);
-		$profile = EB::table('Profile', 'Table');
 
 		if (!$blog->id)
 		{
@@ -45,7 +44,7 @@ class EasyblogApiResourceComments extends ApiResource
 			return;
 		}
 
-		$rows = $model->getBlogComment($id);
+		$rows = $blog->getComments($limit); 
 
 		if (empty($rows))
 		{
@@ -59,21 +58,15 @@ class EasyblogApiResourceComments extends ApiResource
 			$item->commentid = $row->id;
 			$item->postid = $row->post_id;
 			$item->title = $row->title;
-			$item->text = EasyBlogComment::parseBBCode($row->comment);
-			$item->textplain = strip_tags(EasyBlogComment::parseBBCode($row->comment));
+			$item->text = $row->comment;
+			$item->textplain = $row->raw;
 			$item->created_date = $row->created;
 			$item->created_date_elapsed = EasyBlogDate::getLapsedTime($row->created);
 			$item->updated_date = $row->modified;
-
-			// Author
-			$profile->load($row->author->user->id);
 			$item->author->name = $row->author->user->name;
-			$item->author->photo = isset($row->poster->avatar) ? $row->poster->avatar : 'default_blogger.png';
-			$item->author->photo = JURI::root() . 'components/com_easyblog/assets/images/' . $profile->avatar;
-
-			// $item->author->photo = JURI::root() . 'images/easyblog_avatar/' . $profile->avatar;
-			$item->author->email = $row->email;
-			$item->author->website = isset($row->poster->url) ? $row->poster->url : $row->url;
+			$item->author->photo = $row->author->getAvatar();
+			$item->author->email = $row->author->user->email;
+			$item->author->website = '';
 			$comments->result[] = $item;
 		}
 
